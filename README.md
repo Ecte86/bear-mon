@@ -1,6 +1,6 @@
-# ect-mon
+# Bear-mon
 
-A C64 memory monitor. Needs a better name.
+A C64 memory monitor. Might need a better name.
 
 This is my first public github repo! Please be **gentle**.
 

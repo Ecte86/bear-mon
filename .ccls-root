@@ -1,0 +1,5 @@
+-isystem/home/ecte/compilers/c64/oscar64/include
+-isystem/home/ecte/compilers/c64/oscar64/include/c64
+-isystem/home/ecte/compilers/c64/oscar64/include/gfx
+-isystem/home/ecte/compilers/c64/oscar64/include/audio
+-I include

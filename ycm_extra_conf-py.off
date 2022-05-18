@@ -1,4 +1,0 @@
-def Settings( **kwargs):
-    return {
-        'flags': [ '-x', 'c', '-i','include', '-isystem', '/home/ecte/compilers/c64/oscar64/include']#, '-isystem', '~/compilers/c64/oscar64/include/audio', '-isystem', '~/compilers/c64/oscar64/include/c64', '-isystem', '~/compilers/c64/oscar64/include/gfx']
-    }

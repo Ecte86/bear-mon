@@ -1,1 +1,5 @@
 .ccls-cache
+.vscode/c_cpp_properties.json
+GPATH
+GRTAGS
+GTAGS

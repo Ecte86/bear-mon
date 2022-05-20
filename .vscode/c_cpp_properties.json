@@ -1,18 +1,6 @@
 {
     "configurations": [
         {
-            "name": "Linux",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": [],
-            "compilerPath": "/home/linuxbrew/.linuxbrew/bin/clang",
-            "cStandard": "c17",
-            "cppStandard": "c++14",
-            "intelliSenseMode": "linux-clang-x64",
-            "configurationProvider": "ms-vscode.makefile-tools"
-        },
-        {
             "name": "Oscar64",
             "includePath": [
                 "/home/ecte/compilers/c64/oscar64/include/**",

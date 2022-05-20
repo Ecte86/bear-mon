@@ -17,7 +17,19 @@ unsigned int display_memory(unsigned int current_mem_position);
 
 int main(void)
 {
-    // TODO: IMPLEMENT DISPLAY MEMORY
+    char instructions[348] =
+        ". will move you to the next byte in \
+        memory.\n\n \
+        , will move you to the previous byte.\n\n \
+        To jump to a specific byte somewhere, \n \
+        type J and type the byte number, \n \
+        hex or decimal. If hex, include a $.\n \
+        Example: \n \
+        $0400  $20     ? J1056\n \
+        $0420  $20     ? J$0440\n \
+        $0440  $20     ?";
+
+    // TODO: IMPLEMENT DISPLAY OF MEMORY
     iocharmap(IOCHM_PETSCII_1);
     unsigned int current_mem_position = 4096;
     printf("Hello!\n");

@@ -3,6 +3,8 @@
 GPATH
 GRTAGS
 GTAGS
-GPATH
-GRTAGS
-GTAGS
+*.asm
+*.bcs
+*.int
+*.lbl
+*.map

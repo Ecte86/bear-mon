@@ -10,29 +10,30 @@
 
 #include "utilities.h"
 
-
-unsigned int maybe_jump_to(const char *param, unsigned int current_mem_position);
+unsigned int maybe_jump_to(const char *param,
+                           unsigned int current_mem_position);
 
 unsigned int display_memory(unsigned int current_mem_position);
 
+void print_instructions(void);
+
 int main(void)
 {
-    char instructions[348] =
-        ". will move you to the next byte in \
-        memory.\n\n \
-        , will move you to the previous byte.\n\n \
-        To jump to a specific byte somewhere, \n \
-        type J and type the byte number, \n \
-        hex or decimal. If hex, include a $.\n \
-        Example: \n \
-        $0400  $20     ? J1056\n \
-        $0420  $20     ? J$0440\n \
-        $0440  $20     ?";
+    // char instructions[330] = ". will move you to the next byte in\n"
+    //                          "memory.\n\n, will move you to the\n"
+    //                          "previous byte.\n\n"
+    //                          "To jump to a specific byte,\ntype J\n"
+    //                          "and type the byte number in hex or\n"
+    //                          "decimal. If in hex, include a $.\n"
+    //                          "Example:\n"
+    //                          "    $0400  $20     ? J1056\n"
+    //                          "    $0420  $20     ? J$0440\n"
+    //                          "    $0440  $20     ?";
 
     // TODO: IMPLEMENT DISPLAY OF MEMORY
     iocharmap(IOCHM_PETSCII_1);
     unsigned int current_mem_position = 4096;
-    printf("Hello!\n");
+    print_instructions();
     byte input_size = 10;
     char *input = (char *)calloc((input_size), sizeof(char));
     while (input[0] != 'Q')
@@ -100,7 +101,7 @@ unsigned int maybe_jump_to(const char *param, unsigned int current_mem_position)
             printf("%S\n", param_stripped);
 #endif
             /* Its valid hex! */
-            //dec_param = xtouint(param_stripped);
+            // dec_param = xtouint(param_stripped);
             sscanf(param_stripped, "%X", &dec_param);
 #if DEBUG
             printf("%U\n", dec_param);
@@ -136,4 +137,23 @@ unsigned int maybe_jump_to(const char *param, unsigned int current_mem_position)
 unsigned int display_memory(unsigned int current_mem_position)
 {
     return peek(current_mem_position);
+}
+
+void print_instructions(void)
+{
+    // TODO: WHY DOES THIS NOT PRINT???
+    char instr[10][40] = {". will move you to the next byte in\n",
+                          "memory.\n\n, will move you to the\n",
+                          "previous byte.\n\n",
+                          "To jump to a specific byte,\ntype J\n",
+                          "and type the byte number in hex or\n",
+                          "decimal. If in hex, include a $.\n",
+                          "Example:\n",
+                          "    $0400  $20     ? J1056\n",
+                          "    $0420  $20     ? J$0440\n",
+                          "    $0440  $20     ?"};
+    for (byte i = 0; i < 10; i++)
+    {
+        printf("%S", instr[i]);
+    }
 }

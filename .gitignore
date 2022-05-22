@@ -8,3 +8,8 @@ GTAGS
 *.int
 *.lbl
 *.map
+build/debug/ect-mon.asm
+build/debug/ect-mon.bcs
+build/debug/ect-mon.int
+build/debug/ect-mon.lbl
+build/debug/ect-mon.map

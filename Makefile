@@ -3,10 +3,11 @@ CC=oscar64
 INCDIR=include
 SRCDIR=src
 OUTDIR=build
-OUTNAME=$(OUTDIR)/ect-mon.prg
+OUTEXE=bearmon
+OUTNAME=$(OUTDIR)/$(OUTEXE).prg
 SRCS:=$(shell find $(SRCDIR) -name '*.c' -exec echo "{}" \;)
-BUILT_FILES:=$(shell find build -maxdepth 1 -name 'ect-mon.*')
-BUILT_FILES_NO_PRG:=$(shell find build -maxdepth 1 -type f \! -name 'ect-mon.prg')
+BUILT_FILES:=$(shell find build -maxdepth 1 -name '$(OUTEXE).*')
+BUILT_FILES_NO_PRG:=$(shell find build -maxdepth 1 -type f \! -name '$(OUTEXE).prg')
 
 .PHONY: all build run clean
 

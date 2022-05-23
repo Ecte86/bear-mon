@@ -19,28 +19,28 @@ void print_instructions(void);
 
 int main(void)
 {
-    // char instructions[330] = ". will move you to the next byte in\n"
-    //                          "memory.\n\n, will move you to the\n"
-    //                          "previous byte.\n\n"
-    //                          "To jump to a specific byte,\ntype J\n"
-    //                          "and type the byte number in hex or\n"
-    //                          "decimal. If in hex, include a $.\n"
-    //                          "Example:\n"
-    //                          "    $0400  $20     ? J1056\n"
-    //                          "    $0420  $20     ? J$0440\n"
-    //                          "    $0440  $20     ?";
 
     // TODO: IMPLEMENT DISPLAY OF MEMORY
     iocharmap(IOCHM_PETSCII_1);
     unsigned int current_mem_position = 4096;
-    print_instructions();
+    clrscr();
+    puts("Bear-Mon64\t\tBy Ecte\n\nEnter '?' for instructions.\n\n");
+    // print_instructions();
     byte input_size = 10;
     char *input = (char *)calloc((input_size), sizeof(char));
-    while (input[0] != 'Q')
+    while (input[0] != 'Q') // main loop
     {
-        char promptText[6];
-        sprintf(promptText, "$%X ", current_mem_position);
-        printf("%X", display_memory(current_mem_position));
+        char promptText[25];
+        byte memory_at_pos = display_memory(current_mem_position);
+        char memory_at_pos_char = (char)memory_at_pos;
+        if (string_test((char *)memory_at_pos_char, IS_PRINTABLE) == false)
+        {
+            memory_at_pos_char = '@';
+        }
+        sprintf(promptText, "    $%04X  $%03X  %C  > ", current_mem_position,
+                memory_at_pos, memory_at_pos_char);
+        // printf("%X  %X", current_mem_position,
+        // display_memory(current_mem_position));
         promptForInput(promptText, input, input_size);
         switch (input[0])
         {
@@ -49,6 +49,11 @@ int main(void)
             char pos[6];
             sprintf(pos, "%D", current_mem_position + 1);
             current_mem_position = maybe_jump_to(pos, current_mem_position);
+            break;
+        }
+        case '?':
+        {
+            print_instructions();
             break;
         }
         case 'J':
@@ -120,6 +125,7 @@ unsigned int maybe_jump_to(const char *param, unsigned int current_mem_position)
     default:
     {
         dec_param = atoi(param);
+        break;
     }
     }
     if (!(dec_param >= 0 && dec_param <= 65535))
@@ -141,19 +147,19 @@ unsigned int display_memory(unsigned int current_mem_position)
 
 void print_instructions(void)
 {
-    // TODO: WHY DOES THIS NOT PRINT???
-    char instr[10][40] = {". will move you to the next byte in\n",
-                          "memory.\n\n, will move you to the\n",
-                          "previous byte.\n\n",
-                          "To jump to a specific byte,\ntype J\n",
-                          "and type the byte number in hex or\n",
-                          "decimal. If in hex, include a $.\n",
-                          "Example:\n",
-                          "    $0400  $20     ? J1056\n",
-                          "    $0420  $20     ? J$0440\n",
-                          "    $0440  $20     ?"};
-    for (byte i = 0; i < 10; i++)
-    {
-        printf("%S", instr[i]);
-    }
+    clrscr();
+    const char *instr = "Instructions: \n\n"
+                        "'.' will move you to the next byte\n"
+                        "in memory.\n\n',' will move you to the\n"
+                        "previous byte.\n\n"
+                        "To jump to a specific byte,\ntype 'J'\n"
+                        "and type the byte number in hex or\n"
+                        "decimal. If the address you type is\n"
+                        "in hex, include a '$'.\n\n"
+                        "Example:\n"
+                        "    $0400  $020     > J1056\n"
+                        "    $0420  $020     > J$0440\n"
+                        "    $0440  $020     >\n\n"
+                        "----------------------------------------\n\n";
+    puts(instr);
 }

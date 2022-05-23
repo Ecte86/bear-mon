@@ -12,6 +12,7 @@ typedef enum Test_Type_E
 {
     IS_DIGIT,
     IS_CHARS,
+    IS_PRINTABLE,
     IS_BOOL,
     IS_HEX
 } Test_Type;
@@ -19,6 +20,8 @@ typedef enum Test_Type_E
 void promptForInput(const char *prompt, char *userInput, byte length);
 
 void substr(byte start, byte length, const char *str, char *sub_str);
+
+word intlen(word num);
 
 bool string_test(char *expr, Test_Type test);
 

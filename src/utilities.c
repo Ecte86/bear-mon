@@ -18,6 +18,17 @@ void strlower(char *str)
     }
 }
 
+word intlen(word num)
+{
+    word count = 0;
+    while (num != 0)
+    {
+        num /= 10;
+        count++;
+    }
+    return count;
+}
+
 void promptForInput(const char *prompt, char *userInput, byte length)
 {
     char lastChar = prompt[strlen(prompt) - 1];
@@ -113,6 +124,85 @@ uint xtouint(const char *str)
     return res;
 }
 
+bool char_test(char expr, Test_Type test)
+{
+    switch (test)
+    {
+    case IS_BOOL:
+    {
+        if (expr != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        break;
+    }
+    case IS_CHARS:
+    {
+        iocharmap(IOCHM_PETSCII_2);
+        bool retVal = false;
+        if (expr >= 'a' && expr <= 'z')
+        {
+            retVal = true;
+        }
+        else
+        {
+            retVal = false;
+        }
+
+        iocharmap(IOCHM_PETSCII_1);
+        return retVal;
+        break;
+    }
+    case IS_DIGIT:
+    {
+        if (expr >= '0' && expr <= '9')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        break;
+    }
+    case IS_PRINTABLE:
+    {
+        char chr = expr;
+        bool test1 = ((chr >= 0x20) && (chr <= 0x7f));
+        bool test2 = ((chr >= 0xa0) && (chr <= 0xff));
+        if (test1 || test2)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        break;
+    }
+    case IS_HEX:
+    {
+        iocharmap(IOCHM_PETSCII_2);
+        bool retVal = false;
+        if (char_test(expr, IS_DIGIT) || (expr >= 'a' && expr <= 'f'))
+        {
+            retVal = true;
+        }
+        else
+        {
+            retVal = false;
+        }
+        iocharmap(IOCHM_PETSCII_1);
+        return retVal;
+        break;
+    }
+    }
+}
+
 bool string_test(char *expr, Test_Type test)
 {
     switch (test)
@@ -135,7 +225,7 @@ bool string_test(char *expr, Test_Type test)
         bool retVal = false;
         for (byte i = 0; expr[i] != '\0'; i++)
         {
-            if (expr[i] >= 'a' || expr[i] <= 'z')
+            if (expr[i] >= 'a' && expr[i] <= 'z')
             {
                 retVal = true;
             }
@@ -152,7 +242,25 @@ bool string_test(char *expr, Test_Type test)
     {
         for (byte i = 0; expr[i] != '\0'; i++)
         {
-            if (expr[i] >= '0' || expr[i] <= '9')
+            if (expr[i] >= '0' && expr[i] <= '9')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        break;
+    }
+    case IS_PRINTABLE:
+    {
+        for (byte i = 0; expr[i] != '0'; i++)
+        {
+            char chr = expr[i];
+            bool test1 = ((chr >= 0x20) && (chr <= 0x7f));
+            bool test2 = ((chr >= 0xa0) && (chr <= 0xff));
+            if (test1 || test2)
             {
                 return true;
             }
@@ -186,10 +294,7 @@ bool string_test(char *expr, Test_Type test)
     }
 }
 
-inline char peek(word address)
-{
-    return *(volatile char *)address;
-}
+inline char peek(word address) { return *(volatile char *)address; }
 
 inline void poke(word address, char value)
 {

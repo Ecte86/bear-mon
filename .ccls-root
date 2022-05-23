@@ -3,3 +3,4 @@
 -isystem/home/ecte/compilers/c64/oscar64/include/gfx
 -isystem/home/ecte/compilers/c64/oscar64/include/audio
 -I include
+-Wno-format-invalid-specifier

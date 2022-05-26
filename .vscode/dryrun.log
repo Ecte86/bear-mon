@@ -1,0 +1,9 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/ecte/misc-code/c64/oscar64/bear-mon'
+find -type f -wholename build/bearmon.prg -exec rm {} \;
+oscar64 -i=include src/main.c src/utilities.c -o=build/bearmon.prg
+echo "Moving debug files to build/debug..."
+echo "...done!"
+x64sc -silent build/bearmon.prg 
+make: Leaving directory '/home/ecte/misc-code/c64/oscar64/bear-mon'
+ 

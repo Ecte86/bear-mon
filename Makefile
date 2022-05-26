@@ -19,7 +19,12 @@ build:
 	$(CC) -i=$(INCDIR) $(SRCS) -o=$(OUTNAME)
 
 run: $(OUTNAME)
+	@echo "[Warning] This may fail if you dont have Vice in your path!!"
+ifeq ($(OS),Windows_NT)
 	pwsh.exe /c $^
+else
+	x64sc -silent $^ 
+endif
 
 organise:
 	@echo "Moving debug files to $(OUTDIR)/debug..."
